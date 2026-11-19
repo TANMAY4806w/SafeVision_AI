@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
 from api.routes import router as api_router
+from demo.app import router as dashboard_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,6 +40,9 @@ app.add_middleware(
 
 # Register API routes
 app.include_router(api_router)
+
+# Register Dashboard
+app.include_router(dashboard_router)
 
 
 @app.get("/", include_in_schema=False)
