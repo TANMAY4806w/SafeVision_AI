@@ -200,7 +200,27 @@ python main.py
 
 ---
 
-## 📊 6. Edge Performance Benchmarks (ONNX Runtime vs PyTorch)
+## 📊 6. Model Training & Evaluation Metrics
+
+The custom YOLOv8 model was trained on the industrial **Construction-PPE** dataset (20 Epochs on Tesla T4 GPU).
+
+### Key Class Accuracy & mAP@50:
+| Class | Precision | Recall | mAP@50 | Operational Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Person` (Workers)** | **91.1%** | **90.0%** | **94.5%** | 🔥 Production Grade |
+| **`Safety_Vest`** | **91.4%** | **87.9%** | **91.7%** | 🔥 Production Grade |
+| **`Helmet`** | **83.4%** | **80.3%** | **82.8%** | 🟢 Compliant |
+| **`No_Vest` (Violation)** | **92.2%** | **61.5%** | **71.4%** | 🟢 High Precision Alert |
+| **`No_Helmet` (Violation)** | **77.7%** | **53.6%** | **61.5%** | 🟢 High Precision Alert |
+| **Overall Dataset** | **79.9%** | **69.4%** | **74.3%** | ✅ Exceeds 70% threshold |
+
+* **Model Checkpoint Size:** `best.pt` (~6.2 MB) | `best.onnx` FP16 (~6.4 MB)
+* **Raw Inference Latency:** **2.6 ms per image** (>380 FPS theoretical on Tesla T4)
+* **Training Notebook:** [notebooks/train_colab.ipynb](notebooks/train_colab.ipynb) (Includes full outputs & loss curves)
+
+---
+
+## ⚡ 7. Edge Performance Benchmarks (ONNX Runtime vs PyTorch)
 
 | Runtime Engine | Precision | Average Latency (ms) | Throughput (FPS) | Speedup Gain |
 | :--- | :--- | :--- | :--- | :--- |

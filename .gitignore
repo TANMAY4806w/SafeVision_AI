@@ -47,6 +47,7 @@ runs/
 *.weights
 *.pt
 *.onnx
+*.zip
 data/*.mp4
 
 # OS specific
