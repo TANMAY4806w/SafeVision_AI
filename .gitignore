@@ -45,6 +45,9 @@ coverage.xml
 # Large Model weights & training runs
 runs/
 *.weights
+*.pt
+*.onnx
+data/*.mp4
 
 # OS specific
 .DS_Store

@@ -1,0 +1,24 @@
+{
+  "zones": [
+    {
+      "name": "Robotic_Arm_Perimeter",
+      "severity": "CRITICAL",
+      "polygon": [
+        [50, 100],
+        [350, 100],
+        [350, 450],
+        [50, 450]
+      ]
+    },
+    {
+      "name": "High_Voltage_Switchyard",
+      "severity": "HIGH",
+      "polygon": [
+        [420, 200],
+        [600, 200],
+        [600, 460],
+        [420, 460]
+      ]
+    }
+  ]
+}
