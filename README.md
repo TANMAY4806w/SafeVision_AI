@@ -5,6 +5,7 @@
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-00FFFF)](https://github.com/ultralytics/ultralytics)
 [![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-FP16-005CED?logo=onnx&logoColor=white)](https://onnxruntime.ai/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TANMAY4806w/SafeVision_AI/blob/main/notebooks/train_colab.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > **SafeVision AI** transforms passive industrial CCTV cameras into an autonomous, 24/7 edge safety supervisor. It ingests live RTSP camera feeds with zero buffer lag, detects missing Personal Protective Equipment (Hard Hats & High-Visibility Vests), enforces virtual polygon danger zones, and generates automated GenAI OSHA compliance incident reports.
