@@ -1,0 +1,33 @@
+{
+  "facility_name": "Industrial Facility - Bay Alpha",
+  "edge_node_id": "EDGE-SRV-PUNE-01",
+  "cameras": [
+    {
+      "camera_id": "CAM-01-WELDING",
+      "name": "Welding Bay East",
+      "location": "Sector 3, Building A",
+      "rtsp_url": "data/sample_feed.mp4",
+      "zone_ids": ["zone_01"],
+      "enabled": true,
+      "target_fps": 15
+    },
+    {
+      "camera_id": "CAM-02-LOADING",
+      "name": "Loading Dock North",
+      "location": "Gate 2 Logistics",
+      "rtsp_url": "data/sample_feed.mp4",
+      "zone_ids": ["zone_02"],
+      "enabled": true,
+      "target_fps": 15
+    },
+    {
+      "camera_id": "CAM-03-ASSEMBLY",
+      "name": "Assembly Line Main",
+      "location": "Floor 1 Main Conveyor",
+      "rtsp_url": "data/sample_feed.mp4",
+      "zone_ids": [],
+      "enabled": false,
+      "target_fps": 10
+    }
+  ]
+}
