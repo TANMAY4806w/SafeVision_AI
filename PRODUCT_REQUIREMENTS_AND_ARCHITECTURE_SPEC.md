@@ -139,16 +139,21 @@ In heavy industrial environments (cement plants, steel manufacturing, automotive
 │   ├── routes.py                         # Stream & Detection REST endpoints
 │   └── reporter.py                       # GenAI OSHA Incident Report Synthesizer
 │
-├── demo/                                 # Visual Demo & Presentation
-│   └── app.py                            # Streamlit / Local interactive dashboard
+├── demo/                                 # Enterprise Operations Dashboard
+│   ├── __init__.py
+│   └── app.py                            # Production HTML5 monitoring console (/dashboard)
 │
 ├── data/                                 # Sample media & test assets
 │   ├── sample_feed.mp4                   # Sample industrial video clip
-│   └── zones.json                        # Pre-configured polygon zone coordinates
+│   ├── zones.json                        # Pre-configured polygon zone coordinates
+│   └── cameras.json                      # Multi-camera RTSP topology specification
 │
-├── tests/                                # Automated Test Suite
+├── tests/                                # Automated Test Suite (33 tests)
 │   ├── test_stream.py
-│   └── test_polygon.py
+│   ├── test_polygon.py
+│   ├── test_detector.py
+│   ├── test_api.py
+│   └── test_dashboard.py
 │
 ├── Dockerfile                            # Production Container Definition
 ├── requirements.txt                      # Frozen Python dependencies

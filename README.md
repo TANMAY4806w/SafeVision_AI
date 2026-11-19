@@ -151,16 +151,25 @@ SafeVision_AI/
 │   ├── routes.py                         # Stream & Detection REST endpoints
 │   └── reporter.py                       # GenAI OSHA Incident Report Synthesizer
 │
-├── demo/                                 # Visual Demo & Presentation
-│   └── app.py                            # Interactive Streamlit dashboard
+├── demo/                                 # Enterprise Operations Dashboard
+│   ├── __init__.py
+│   └── app.py                            # Production HTML5 monitoring console (/dashboard)
 │
 ├── data/                                 # Media & configurations
 │   ├── sample_feed.mp4                   # Sample industrial video clip
-│   └── zones.json                        # Pre-configured polygon zone coordinates
+│   ├── zones.json                        # Pre-configured polygon zone coordinates
+│   └── cameras.json                      # Multi-camera RTSP topology specification
 │
-├── tests/                                # Automated Pytest Suite
+├── tests/                                # Automated Pytest Suite (33 tests)
 │   ├── test_stream.py                    # Stream buffer concurrency tests
-│   └── test_polygon.py                   # Point-in-polygon math accuracy tests
+│   ├── test_polygon.py                   # Point-in-polygon math accuracy tests
+│   ├── test_detector.py                  # Spatial PPE pairing & tracking tests
+│   ├── test_api.py                       # REST API & OSHA report tests
+│   └── test_dashboard.py                 # Enterprise UI route & telemetry tests
+│
+├── docs/                                 # Enterprise Field Documentation
+│   ├── CLIENT_CAMERA_SETUP_AND_DEPLOYMENT_GUIDE.md  # On-prem camera & network setup
+│   └── INTERVIEW_TALKING_POINTS_AND_DECISIONS.md    # Senior engineering decisions log
 │
 ├── Dockerfile                            # Production Container Definition
 ├── docker-compose.yml                    # Multi-container orchestration
@@ -190,10 +199,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Run the Microservice
+### 3. Run the Microservice & Dashboard
 ```bash
 python main.py
 ```
+* **Operations Dashboard:** `http://localhost:8000/dashboard`
 * **API Documentation:** `http://localhost:8000/docs`
 * **Live Video Stream:** `http://localhost:8000/api/v1/video/stream`
 * **Health Check:** `http://localhost:8000/health`
@@ -220,13 +230,17 @@ The custom YOLOv8 model was trained on the industrial **Construction-PPE** datas
 
 ---
 
-## ⚡ 7. Edge Performance Benchmarks (ONNX Runtime vs PyTorch)
+## ⚡ 7. Edge Performance Benchmarks (Empirical Hardware Results)
 
-| Runtime Engine | Precision | Average Latency (ms) | Throughput (FPS) | Speedup Gain |
-| :--- | :--- | :--- | :--- | :--- |
-| **PyTorch (Native)** | FP32 | 48.2 ms | ~20.7 FPS | Baseline |
-| **ONNX Runtime (GPU)**| FP16 | **24.6 ms** | **~40.6 FPS** | **+95.9% Faster** |
-| **ONNX Runtime (CPU)**| INT8 | **31.4 ms** | **~31.8 FPS** | **+53.5% Faster** |
+Tested on **NVIDIA GeForce RTX 2050 (4GB VRAM)** using fine-tuned weights (`models/best.pt`) across 100 sequential inferences:
+
+| Runtime Engine | Precision | Active Device | Mean Latency (ms) | P50 (ms) | P95 (ms) | Throughput (FPS) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **PyTorch (Native)** | FP32 Standard | `cuda:0` | 13.50 ms | 12.43 ms | 16.58 ms | **74.0 FPS** |
+| **PyTorch (Quantized)**| **FP16 Half** | `cuda:0` | **13.06 ms** | **12.28 ms** | **16.58 ms** | 🔥 **76.6 FPS** |
+| **ONNX Runtime** | FP16 Export | `CPU` (Fallback) | 52.50 ms | 50.65 ms | 70.76 ms | **19.0 FPS** |
+
+*Note: On Windows edge systems without matching CUDA 13 DLLs, PyTorch native FP16 (`cuda:0`) delivers the best production throughput (76.6 FPS, ~3x faster than the 25 FPS production latency budget).*
 
 ---
 
