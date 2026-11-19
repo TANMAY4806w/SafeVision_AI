@@ -71,9 +71,22 @@ This document records the critical architectural decisions, production edge bott
 │ • Challenge: Streamlit is designed for single-user data science prototypes; its script │
 │   rerun model and WebSocket overhead fail under multi-camera 24/7 industrial loads.    │
 │ • Senior Solution: Built an asynchronous FastAPI microservice with a standard MJPEG    │
-│   stream (`/api/v1/video/stream`) and REST endpoints. Any production React, Vue, or    │
-│   Tailwind dashboard can ingest this feed with zero latency and zero frame drops.      │
+│   stream (`/api/v1/video/stream`) and REST endpoints. Built a zero-build HTML5/Tailwind │
+│   operations dashboard (`demo/app.py`) served directly at `/dashboard` with slide-in   │
+│   violation cards, live Chart.js FPS telemetry, and 23 automated pytest test cases.    │
 │ • Interview Impact: Proves you design software for enterprise deployment, not hacks.   │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ 6. PRODUCTION CONTAINERIZATION & EDGE DEPLOYMENT READINESS                             │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ • Challenge: Industrial edge deployments (NVIDIA Jetson, on-prem edge servers) require │
+│   predictable environments with system-level OpenCV/FFmpeg bindings and health probes. │
+│ • Senior Solution: Designed a slim multi-stage `Dockerfile` (Python 3.11-slim) with    │
+│   OpenCV/FFmpeg system packages, automated HTTP `/health` probe checks, and a          │
+│   production `docker-compose.yml` configured with NVIDIA GPU container pass-through    │
+│   (`driver: nvidia`, `capabilities: [gpu]`) and read-only model volume mounts.        │
+│ • Interview Impact: Proves full-stack Edge MLOps competence from weights to Docker.    │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
